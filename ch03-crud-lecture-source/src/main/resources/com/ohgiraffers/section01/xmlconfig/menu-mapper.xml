@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MenuMapper">
+    <!-- resultMap : 조회한 컬럼과 DTO를 매핑시키기 위한 설정 -->
+    <resultMap id="menuResultMap" type="com.ohgiraffers.section01.xmlconfig.MenuDTO">
+        <id property="code" column="menu_code"/>
+        <result property="name" column="menu_name"/>
+        <result property="price" column="menu_price"/>
+        <result property="categoryCode" column="category_code"/>
+        <result property="orderableStatus" column="orderable_status"/>
+    </resultMap>
+
+    <select id="selectAllMenu" resultMap="menuResultMap">
+        SELECT menu_code, menu_name, menu_price, category_code, orderable_status
+        FROM tbl_menu
+        WHERE orderable_status = 'Y'
+        ORDER BY menu_code
+    </select>
+
+    <!-- parameter가 한 개인 경우 바인딩 되는 이름은 상관 없으며 parameter 타입은 지정하지 않아도 된다.
+        - resultMap: 위에서 생성한 resultMap을 리턴 타입으로 이용하는 경우
+        - resultType: 이미 정의되어 있는 타입을 이용하여 리턴 타입으로 이용하는 경우
+        - parameterType: parameter로 받을 타입 지정. 기본형은 앞에 _를 붙여주는 것이 관례
+        -->
+    <select id="selectMenuByCode" parameterType="_int" resultMap="menuResultMap">
+        SELECT menu_code, menu_name, menu_price, category_code, orderable_status
+        FROM tbl_menu
+        WHERE menu_code = #{code}
+    </select>
+</mapper>
