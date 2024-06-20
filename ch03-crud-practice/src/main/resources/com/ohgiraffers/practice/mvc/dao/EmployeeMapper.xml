@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ohgiraffers.practice.mvc.dao.EmployeeMapper">
+    <resultMap id="empResultMap" type="com.ohgiraffers.practice.mvc.dto.EmployeeDTO">
+        <id property="empId" column="emp_id"/>
+        <result property="empName" column="emp_name"/>
+        <result property="empNo" column="emp_no"/>
+        <result property="email" column="email"/>
+        <result property="phone" column="phone"/>
+        <result property="deptCode" column="dept_code"/>
+        <result property="jobCode" column="job_code"/>
+        <result property="salLevel" column="sal_level"/>
+        <result property="salary" column="salary"/>
+        <result property="bonus" column="bonus"/>
+        <result property="managerId" column="manager_id"/>
+        <result property="hireDate" column="hire_date"/>
+        <result property="entDate" column="ent_date"/>
+        <result property="entYn" column="ent_yn"/>
+    </resultMap>
+
+    <resultMap id="avgSalMap" type="com.ohgiraffers.practice.mvc.dto.JobAvgSalaryDTO">
+        <result property="jobCode" column="job_code"/>
+        <result property="avgSalary" column="avgSalary"/>
+    </resultMap>
+
+    <select id="selectAllEmployees" resultMap="empResultMap">
+        SELECT emp_id,emp_name,emp_no,email,phone,dept_code,job_code,sal_level,salary,bonus,manager_id,hire_date,ent_date,ent_yn
+        FROM employee
+    </select>
+
+    <select id="selectEmployeeById" parameterType="String" resultMap="empResultMap">
+        SELECT emp_id,emp_name,emp_no,email,phone,dept_code,job_code,sal_level,salary,bonus,manager_id,hire_date,ent_date,ent_yn
+        FROM employee
+        WHERE emp_id = #{empId}
+    </select>
+
+    <select id="selectEmployeeByName" parameterType="String" resultMap="empResultMap">
+        SELECT emp_id,emp_name,emp_no,email,phone,dept_code,job_code,sal_level,salary,bonus,manager_id,hire_date,ent_date,ent_yn
+        FROM employee
+        WHERE emp_name = #{empName}
+    </select>
+
+    <insert id="insertEmployee" parameterType="com.ohgiraffers.practice.remix.EmployeeDTO">
+        INSERT INTO employee (emp_id,emp_name,emp_no,job_code,sal_level)
+        VALUES (#{empId},#{empName},#{empNo},#{jobCode},#{salLevel})
+    </insert>
+
+    <update id="updateEmployee" parameterType="com.ohgiraffers.practice.remix.EmployeeDTO">
+        UPDATE employee
+        SET emp_name = #{empName},
+            emp_no = #{empNo},
+            job_code = #{jobCode},
+            sal_level = #{salLevel}
+        WHERE emp_id = #{empId}
+    </update>
+
+    <delete id="deleteEmployee" parameterType="String">
+        DELETE
+        FROM employee
+        WHERE emp_id = #{empId}
+    </delete>
+
+    <select id="printAvgSalaryByJobCode" resultMap="avgSalMap">
+        SELECT job_code, AVG(salary)
+        FROM employee
+        GROUP BY job_code;
+    </select>
+</mapper>
