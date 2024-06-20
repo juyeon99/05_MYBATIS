@@ -50,4 +50,64 @@ public class MenuService {
 
         return menu;
     }
+
+    public boolean registMenu(MenuDTO menu) {
+        // 1. SqlSession 열어주기
+        SqlSession sqlSession = getSqlSession();
+
+        // 2. MenuDAO를 이용해 DB에서 성공여부 반환받기
+        int result = menuDAO.insertMenu(sqlSession,menu);
+
+        // 3. result 결과값에 따라 insert, update, delete는 트랜젝션 처리를 해주어야 함
+        if(result > 0){
+            sqlSession.commit();
+        } else {
+            sqlSession.rollback();
+        }
+
+        // 세션 닫아주기
+        sqlSession.close();
+
+        return result > 0 ? true : false;
+    }
+
+    public boolean modifyMenu(MenuDTO menu) {
+        // 1. SqlSession 열어주기
+        SqlSession sqlSession = getSqlSession();
+
+        // 2. MenuDAO를 이용해 DB에서 성공여부 반환받기
+        int result = menuDAO.updateMenu(sqlSession,menu);
+
+        // 3. 트랜젝션 처리
+        if(result > 0){
+            sqlSession.commit();
+        } else {
+            sqlSession.rollback();
+        }
+
+        // 세션 닫아주기
+        sqlSession.close();
+
+        return result > 0;
+    }
+
+    public boolean deleteMenu(int code) {
+        // 1. SqlSession 열어주기
+        SqlSession sqlSession = getSqlSession();
+
+        // 2. MenuDAO를 이용해 DB에서 성공여부 반환받기
+        int result = menuDAO.deleteMenu(sqlSession,code);
+
+        // 3. 트랜젝션 처리
+        if(result > 0){
+            sqlSession.commit();
+        } else {
+            sqlSession.rollback();
+        }
+
+        // 세션 닫아주기
+        sqlSession.close();
+
+        return result > 0;
+    }
 }

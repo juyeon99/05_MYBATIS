@@ -48,15 +48,61 @@ public class MenuController {
         }
     }
 
-    public void insertMenu() {
+    public void registMenu(Map<String, String> param) {
+        String name = param.get("name");
+        int price = Integer.parseInt(param.get("price"));
+        int categoryCode = Integer.parseInt(param.get("categoryCode"));
 
+        MenuDTO menu = new MenuDTO();
+        menu.setName(name);
+        menu.setPrice(price);
+        menu.setCategoryCode(categoryCode);
+
+        // Service로 보내기
+        boolean result = menuService.registMenu(menu);
+
+        // view로 전달
+        if (result){
+            printResult.printSuccessMessage("insert");
+        } else {
+            printResult.printErrorMessage("insert");
+        }
     }
 
-    public void updateMenu() {
+    public void modifyMenu(Map<String, String> param) {
+        int code = Integer.parseInt(param.get("code"));
+        String name = param.get("name");
+        int price = Integer.parseInt(param.get("price"));
+        int categoryCode = Integer.parseInt(param.get("categoryCode"));
 
+        MenuDTO menu = new MenuDTO();
+        menu.setCode(code);
+        menu.setName(name);
+        menu.setPrice(price);
+        menu.setCategoryCode(categoryCode);
+
+        // Service로 보내기
+        boolean result = menuService.modifyMenu(menu);
+
+        // view로 전달
+        if (result){
+            printResult.printSuccessMessage("update");
+        } else {
+            printResult.printErrorMessage("update");
+        }
     }
 
-    public void deleteMenu() {
+    public void deleteMenu(Map<String, String> param) {
+        int code = Integer.parseInt(param.get("code"));
 
+        // Service로 보내기
+        boolean result = menuService.deleteMenu(code);
+
+        // view로 전달
+        if (result){
+            printResult.printSuccessMessage("delete");
+        } else {
+            printResult.printErrorMessage("delete");
+        }
     }
 }
