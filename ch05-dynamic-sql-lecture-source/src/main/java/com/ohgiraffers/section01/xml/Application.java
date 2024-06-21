@@ -2,7 +2,7 @@ package com.ohgiraffers.section01.xml;
 
 import com.ohgiraffers.common.SearchCriteria;
 
-import java.util.Scanner;
+import java.util.*;
 
 public class Application {
     public static void main(String[] args) {
@@ -23,7 +23,7 @@ public class Application {
             switch (no){
                 case 1: ifSubMenu(); break;
                 case 2: chooseSubMenu(); break;
-                case 3: break;
+                case 3: forEachSubMenu(); break;
                 case 4: break;
                 case 0: System.out.println("시스템을 종료합니다."); return;
             }
@@ -91,4 +91,36 @@ public class Application {
 
         return new SearchCriteria("category",value);
     }
+
+    private static void forEachSubMenu() {
+        Scanner sc = new Scanner(System.in);
+        MenuService menuService = new MenuService();
+        do {
+            System.out.println("\n========== foreach 서브메뉴 ==========");
+            System.out.println("1. 랜덤한 메뉴 5개 추출해서 조회하기");
+            System.out.println("0. 이전 메뉴로");
+            System.out.print("번호 입력: ");
+            int no = sc.nextInt();
+
+            switch (no){
+                case 1: menuService.searchMenuByRandomMenuCode(createRandomMenuCodeList()); break;
+                case 0: return;
+            }
+        } while (true);
+    }
+
+    private static List<Integer> createRandomMenuCodeList() {
+        Set<Integer> set = new HashSet<>(); // 중복제거 위해 Set 이용
+        while (set.size() < 5){
+            int temp = ((int) (Math.random() * 21)) + 1;    // 1 ~ 21
+            set.add(temp);
+        }
+
+        List<Integer> list = new ArrayList<>(set);
+        Collections.sort(list);
+
+        return list;
+    }
+
+
 }

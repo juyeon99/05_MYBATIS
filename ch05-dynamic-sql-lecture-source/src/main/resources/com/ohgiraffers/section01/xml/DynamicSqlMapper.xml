@@ -76,7 +76,7 @@
                 쿼리구문
             </otherwise>
         </choose>
-     -->
+    -->
     <!-- <when> 태그 test 속성에 부합하면 <when> 엘리먼트 구문을 쿼리에 포함
          어떠한 when 조건도 만족하지 못하면 <otherwise> 엘리먼트 구문을 쿼리에 포함 -->
     <select id="searchMenuBySubCategory" parameterType="SearchCriteria" resultMap="menuResultMap">
@@ -95,5 +95,27 @@
             </otherwise>
         </choose>
         ORDER BY a.menu_code
+    </select>
+
+    <!-- <foreach> 태그: JAVA의 for문 역할
+                        1. collection 속성: 반복을 수행할 대상
+                        2. item 속성: 반복을 수행할 때마다 꺼내올 값의 이름 설정
+                        3. open 속성: <foreach> 엘리먼트 구문의 가장 앞에 올 문자
+                        4. separator 속성: 반복이 수행될 때 꺼내온 item 사이에 들어갈 문자
+                        5. close 속성: <foreach> 엘림너트 구문의 마지막에 올 문자 -->
+    <select id="searchMenuByRandomMenuCode" parameterType="hashmap" resultMap="menuResultMap">
+        SELECT a.menu_code, a.menu_name, a.menu_price, a.category_code, a.orderable_status
+        FROM tbl_menu a
+        WHERE a.orderable_status = 'Y'
+        AND a.menu_code IN
+<!--        <foreach collection="randomMenuCodeList" item="menuCode" open="(" separator=", " close=")">-->
+
+        <!-- parameter 객체로 받아오지 않고 static 필드, 또는 static 메소드에 직접 접근하여 반환받아 사용 가능
+             - static 필드 접근시 collection 속성: @풀클래스명@필드명
+             - static 메소드 접근시 collection 속성: @풀클래스명@메소드명() -->
+        <foreach collection="@com.ohgiraffers.section01.xml.Application@createRandomMenuCodeList()"
+                 item="menuCode" open="(" separator=", " close=")">
+            #{menuCode}
+        </foreach>
     </select>
 </mapper>

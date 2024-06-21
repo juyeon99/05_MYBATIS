@@ -69,4 +69,24 @@ public class MenuService {
 
         sqlSession.close();
     }
+
+    public void searchMenuByRandomMenuCode(List<Integer> randomMenuCodeList) {
+        SqlSession sqlSession = getSqlSession();
+        mapper = sqlSession.getMapper(DynamicSqlMapper.class);
+
+        Map<String,List<Integer>> criteria = new HashMap<>();
+
+        criteria.put("randomMenuCodeList", randomMenuCodeList);
+        List<MenuDTO> menuList = mapper.searchMenuByRandomMenuCode(criteria);
+
+        if(menuList != null && menuList.size() > 0){
+            for (MenuDTO menu : menuList){
+                System.out.println(menu);
+            }
+        } else {
+            System.out.println("검색 결과가 존재하지 않습니다.");
+        }
+
+        sqlSession.close();
+    }
 }
