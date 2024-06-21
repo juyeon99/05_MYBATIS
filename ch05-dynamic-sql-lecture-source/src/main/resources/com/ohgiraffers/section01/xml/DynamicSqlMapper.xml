@@ -64,4 +64,36 @@
         </if>
         ORDER BY a.menu_code
     </select>
+
+    <!-- <choose>(when, otherwise) 태그는 JAVA switch-case문 같은 역할 -->
+    <!-- 사용 방법
+        <choose>
+            <when test="조건">
+                쿼리문
+            </when>
+            ...
+            <otherwise>
+                쿼리구문
+            </otherwise>
+        </choose>
+     -->
+    <!-- <when> 태그 test 속성에 부합하면 <when> 엘리먼트 구문을 쿼리에 포함
+         어떠한 when 조건도 만족하지 못하면 <otherwise> 엘리먼트 구문을 쿼리에 포함 -->
+    <select id="searchMenuBySubCategory" parameterType="SearchCriteria" resultMap="menuResultMap">
+        SELECT a.menu_code, a.menu_name, a.category_code, a.orderable_status
+        FROM tbl_menu a
+        WHERE a.orderable_status = 'Y'
+        <choose>
+            <when test="value == '식사'">
+                AND a.category_code IN (1,4,5,6,7)
+            </when>
+            <when test="value == '음료'">
+                AND a.category_code IN (2,8,9,10)
+            </when>
+            <otherwise> <!-- 디저트 -->
+                AND a.category_code IN (3,11,12)
+            </otherwise>
+        </choose>
+        ORDER BY a.menu_code
+    </select>
 </mapper>
