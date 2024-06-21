@@ -174,7 +174,7 @@
 <!--        <if test="name != null and name != ''">-->
 <!--            menu_name = #{name},-->
 <!--        </if>-->
-<!--        <if test="categoryCode != null and categoryCode != ''">-->
+<!--        <if test="categoryCode != null and categoryCode gt 0">-->
 <!--            category_code = #{categoryCode},-->
 <!--        </if>-->
 <!--        <if test="orderableStatus != null and orderableStatus != ''">-->
@@ -186,7 +186,7 @@
 <!--            <if test="name != null and name != ''">-->
 <!--                menu_name = #{name},-->
 <!--            </if>-->
-<!--            <if test="categoryCode != null and categoryCode != ''">-->
+<!--            <if test="categoryCode != null and categoryCode gt 0">-->
 <!--                category_code = #{categoryCode},-->
 <!--            </if>-->
 <!--            <if test="orderableStatus != null and orderableStatus != ''">-->
@@ -199,7 +199,7 @@
             <if test="name != null and name != ''">
                 menu_name = #{name},
             </if>
-            <if test="categoryCode != null and categoryCode != ''">
+            <if test="categoryCode != null and categoryCode gt 0">
                 category_code = #{categoryCode},
             </if>
             <if test="orderableStatus != null and orderableStatus != ''">
