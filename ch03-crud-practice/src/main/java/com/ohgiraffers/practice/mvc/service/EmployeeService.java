@@ -1,6 +1,7 @@
 package com.ohgiraffers.practice.mvc.service;
 
 import com.ohgiraffers.practice.mvc.dao.EmployeeMapper;
+import com.ohgiraffers.practice.mvc.dto.EmpListByDeptDTO;
 import com.ohgiraffers.practice.mvc.dto.EmployeeDTO;
 import com.ohgiraffers.practice.mvc.dto.JobAvgSalaryDTO;
 import org.apache.ibatis.session.SqlSession;
@@ -102,5 +103,16 @@ public class EmployeeService {
         sqlSession.close();
 
         return avgSalList;
+    }
+
+    public List<EmployeeDTO> selectAllEmployeesByDeptCode() {
+        SqlSession sqlSession = getSqlSession();
+
+        employeeMapper = sqlSession.getMapper(EmployeeMapper.class);
+        List<EmployeeDTO> empDeptList = employeeMapper.selectAllEmployeesByDeptCode();
+
+        sqlSession.close();
+
+        return empDeptList;
     }
 }

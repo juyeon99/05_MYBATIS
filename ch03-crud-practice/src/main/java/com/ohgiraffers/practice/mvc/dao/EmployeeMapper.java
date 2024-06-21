@@ -1,5 +1,6 @@
 package com.ohgiraffers.practice.mvc.dao;
 
+import com.ohgiraffers.practice.mvc.dto.EmpListByDeptDTO;
 import com.ohgiraffers.practice.mvc.dto.EmployeeDTO;
 import com.ohgiraffers.practice.mvc.dto.JobAvgSalaryDTO;
 
@@ -19,4 +20,6 @@ public interface EmployeeMapper {
     int deleteEmployee(String empId);
 
     List<JobAvgSalaryDTO> printAvgSalaryByJobCode();
+
+    List<EmployeeDTO> selectAllEmployeesByDeptCode();
 }

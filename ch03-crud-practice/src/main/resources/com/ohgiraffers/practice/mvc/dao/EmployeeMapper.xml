@@ -63,8 +63,14 @@
     </delete>
 
     <select id="printAvgSalaryByJobCode" resultMap="avgSalMap">
-        SELECT job_code, AVG(salary)
+        SELECT job_code, AVG(salary) AS avgSalary
         FROM employee
         GROUP BY job_code;
+    </select>
+
+    <select id="selectAllEmployeesByDeptCode" resultMap="empResultMap">
+        SELECT emp_id,emp_name,dept_code
+        FROM employee
+        ORDER BY dept_code,emp_id;
     </select>
 </mapper>

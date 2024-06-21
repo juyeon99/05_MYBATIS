@@ -114,7 +114,7 @@ public class Application {
                     empController.printAvgSalaryByJobCode();
                     break;
                 case 4: // 부서별 임직원 조회하기
-
+                    empController.selectAllEmployeesByDeptCode();
                     break;
                 case 0:
                     flag = false;
