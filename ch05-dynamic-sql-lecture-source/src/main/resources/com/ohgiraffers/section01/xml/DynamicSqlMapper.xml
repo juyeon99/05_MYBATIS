@@ -195,7 +195,7 @@
 <!--        </set>-->
 
         <!-- 방법 2. <trim> 사용 -->
-        <trim prefix="set" prefixOverrides=",">
+        <trim prefix="set" prefixOverrides="," suffixOverrides=",">
             <if test="name != null and name != ''">
                 menu_name = #{name},
             </if>
