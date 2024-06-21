@@ -1,5 +1,6 @@
 package com.ohgiraffers.practice.mvc.controller;
 
+import com.ohgiraffers.practice.mvc.dto.EmpJobDTO;
 import com.ohgiraffers.practice.mvc.dto.EmpListByDeptDTO;
 import com.ohgiraffers.practice.mvc.dto.EmployeeDTO;
 import com.ohgiraffers.practice.mvc.dto.JobAvgSalaryDTO;
@@ -130,6 +131,17 @@ public class EmployeeController {
             printResult.printAllEmployeesByDeptCode(empDeptList);
         } else {
             printResult.printErrorMessage("selectAllEmployeesByDeptCode");
+        }
+    }
+
+    public void selectEmployeeNameAndJobName() {
+        List<EmpJobDTO> empJobList = employeeService.selectEmployeeNameAndJobName();
+
+        // view로 전달
+        if (empJobList != null){
+            printResult.printEmployeeNameAndJobName(empJobList);
+        } else {
+            printResult.printErrorMessage("selectEmployeeNameAndJobName");
         }
     }
 }

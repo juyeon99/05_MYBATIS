@@ -19,7 +19,7 @@ public class Application {
         do{
             System.out.println("\n-----------------------------");
             System.out.println("1. 직원 관리 시스템\n2. 직급 관리 시스템\n3. 임직원의 월급 평균 확인하기\n" +
-                    "4. 부서별 임직원 조회하기\n0. 프로그램 종료");
+                    "4. 부서별 임직원 조회하기\n5. 임직원 직급 이름 조회\n0. 프로그램 종료");
             System.out.print("선택: ");
             int no = sc.nextInt();
 
@@ -115,6 +115,9 @@ public class Application {
                     break;
                 case 4: // 부서별 임직원 조회하기
                     empController.selectAllEmployeesByDeptCode();
+                    break;
+                case 5: // 임직원 직급 이름 조회
+                    empController.selectEmployeeNameAndJobName();
                     break;
                 case 0:
                     flag = false;
