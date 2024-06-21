@@ -1,5 +1,6 @@
 package com.ohgiraffers.practice.mvc.dao;
 
+import com.ohgiraffers.practice.mvc.dto.EmpJobDTO;
 import com.ohgiraffers.practice.mvc.dto.EmpListByDeptDTO;
 import com.ohgiraffers.practice.mvc.dto.EmployeeDTO;
 import com.ohgiraffers.practice.mvc.dto.JobAvgSalaryDTO;
@@ -22,4 +23,6 @@ public interface EmployeeMapper {
     List<JobAvgSalaryDTO> printAvgSalaryByJobCode();
 
     List<EmployeeDTO> selectAllEmployeesByDeptCode();
+
+    List<EmpJobDTO> selectEmployeeNameAndJobName();
 }

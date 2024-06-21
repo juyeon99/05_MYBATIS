@@ -25,6 +25,13 @@
         <result property="avgSalary" column="avgSalary"/>
     </resultMap>
 
+    <resultMap id="empJobMap" type="com.ohgiraffers.practice.mvc.dto.EmpJobDTO">
+        <result property="empId" column="emp_id"/>
+        <result property="empName" column="emp_name"/>
+        <result property="jobCode" column="job_code"/>
+        <result property="jobName" column="job_name"/>
+    </resultMap>
+
     <select id="selectAllEmployees" resultMap="empResultMap">
         SELECT emp_id,emp_name,emp_no,email,phone,dept_code,job_code,sal_level,salary,bonus,manager_id,hire_date,ent_date,ent_yn
         FROM employee
@@ -72,5 +79,11 @@
         SELECT emp_id,emp_name,dept_code
         FROM employee
         ORDER BY dept_code,emp_id;
+    </select>
+
+    <select id="selectEmployeeNameAndJobName" resultMap="empJobMap">
+        SELECT emp_id,emp_name,job_code,job_name
+        FROM employee JOIN job USING(job_code)
+        ORDER BY emp_id;
     </select>
 </mapper>

@@ -1,5 +1,6 @@
 package com.ohgiraffers.practice.mvc.view;
 
+import com.ohgiraffers.practice.mvc.dto.EmpJobDTO;
 import com.ohgiraffers.practice.mvc.dto.EmpListByDeptDTO;
 import com.ohgiraffers.practice.mvc.dto.EmployeeDTO;
 import com.ohgiraffers.practice.mvc.dto.JobAvgSalaryDTO;
@@ -60,6 +61,9 @@ public class EmployeePrintResult {
             case "selectAllEmployeesByDeptCode":
                 errorMessage = "부서별 직원 조회에 실패했습니다.";
                 break;
+            case "selectEmployeeNameAndJobName":
+                errorMessage = "임직원 직급 조회에 실패했습니다.";
+                break;
         }
         System.out.println(errorMessage);
     }
@@ -107,6 +111,12 @@ public class EmployeePrintResult {
 //                    System.out.println("\t" + emp);
                 }
             }
+        }
+    }
+
+    public void printEmployeeNameAndJobName(List<EmpJobDTO> empJobList) {
+        for (EmpJobDTO empJob : empJobList){
+            System.out.println(empJob);
         }
     }
 }

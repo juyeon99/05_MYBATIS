@@ -1,6 +1,7 @@
 package com.ohgiraffers.practice.mvc.service;
 
 import com.ohgiraffers.practice.mvc.dao.EmployeeMapper;
+import com.ohgiraffers.practice.mvc.dto.EmpJobDTO;
 import com.ohgiraffers.practice.mvc.dto.EmpListByDeptDTO;
 import com.ohgiraffers.practice.mvc.dto.EmployeeDTO;
 import com.ohgiraffers.practice.mvc.dto.JobAvgSalaryDTO;
@@ -114,5 +115,16 @@ public class EmployeeService {
         sqlSession.close();
 
         return empDeptList;
+    }
+
+    public List<EmpJobDTO> selectEmployeeNameAndJobName() {
+        SqlSession sqlSession = getSqlSession();
+
+        employeeMapper = sqlSession.getMapper(EmployeeMapper.class);
+        List<EmpJobDTO> empJobList = employeeMapper.selectEmployeeNameAndJobName();
+
+        sqlSession.close();
+
+        return empJobList;
     }
 }
