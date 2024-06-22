@@ -1,8 +1,6 @@
 package com.ohgiraffers.section01.config;
 
-
 public class MenuDTO implements java.io.Serializable {
-
     private int code;
     private String name;
     private int price;
@@ -65,6 +63,5 @@ public class MenuDTO implements java.io.Serializable {
         return "MenuDTO [code=" + code + ", name=" + name + ", price=" + price + ", categoryCode=" + categoryCode
                 + ", orderableStatus=" + orderableStatus + "]";
     }
-
 }
 
