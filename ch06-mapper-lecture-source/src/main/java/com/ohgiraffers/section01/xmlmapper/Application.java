@@ -43,7 +43,7 @@ public class Application {
                 case 1: elementTestService.selectResultMapTest(); break;
                 case 2: elementTestService.selectResultMapConstructorTest(); break;
                 case 3: elementTestService.selectResultMapAssociationTest(); break;
-                case 4: break;
+                case 4: elementTestService.selectResultMapCollectionTest(); break;
                 case 0: return;
             }
         } while (true);
