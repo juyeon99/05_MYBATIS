@@ -57,13 +57,16 @@
         <if test="condition == 'category'">
             JOIN tbl_category b ON (a.category_code = b.category_code)
         </if>
+
         WHERE a.orderable_status = 'Y'
+
         <if test="condition == 'name'">
             AND a.menu_name LIKE CONCAT('%', #{value}, '%')
         </if>
         <if test="condition == 'category'">
             AND b.category_name = #{value}
         </if>
+
         ORDER BY a.menu_code
     </select>
 
@@ -104,7 +107,7 @@
                         2. item 속성: 반복을 수행할 때마다 꺼내올 값의 이름 설정
                         3. open 속성: <foreach> 엘리먼트 구문의 가장 앞에 올 문자
                         4. separator 속성: 반복이 수행될 때 꺼내온 item 사이에 들어갈 문자
-                        5. close 속성: <foreach> 엘림너트 구문의 마지막에 올 문자 -->
+                        5. close 속성: <foreach> 엘리먼트 구문의 마지막에 올 문자 -->
     <select id="searchMenuByRandomMenuCode" parameterType="hashmap" resultMap="menuResultMap">
         SELECT a.menu_code, a.menu_name, a.menu_price, a.category_code, a.orderable_status
         FROM tbl_menu a
