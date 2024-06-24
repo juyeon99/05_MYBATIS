@@ -56,6 +56,6 @@
 
     <select id="selectDeptAndEmployees" resultMap="deptAndEmployeeResultMap">
         SELECT *
-        FROM employee a JOIN department b ON (a.dept_code = b.dept_id)
+        FROM employee a LEFT JOIN department b ON (a.dept_code = b.dept_id)
     </select>
 </mapper>
