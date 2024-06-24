@@ -34,14 +34,15 @@ public class Application {
         do {
             System.out.println("\n========== <resultMap> 서브 메뉴 ==========");
             System.out.println("1. <resultMap> 테스트\n2. <constructor> 테스트\n3. <association> 테스트\n4. <collection> 테스트\n0. 이전 메뉴로");
+            System.out.println("--------------------------------------------");
             System.out.print("번호 입력: ");
             int no = sc.nextInt();
             sc.nextLine();
 
             switch (no){
                 case 1: elementTestService.selectResultMapTest(); break;
-                case 2: break;
-                case 3: break;
+                case 2: elementTestService.selectResultMapConstructorTest(); break;
+                case 3: elementTestService.selectResultMapAssociationTest(); break;
                 case 4: break;
                 case 0: return;
             }

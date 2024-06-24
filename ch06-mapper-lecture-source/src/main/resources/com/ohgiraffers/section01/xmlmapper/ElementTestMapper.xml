@@ -63,4 +63,53 @@
         FROM tbl_menu a
         WHERE a.orderable_status = 'Y'
     </select>
+
+    <!--
+        <resultMap>의 하위 엘리먼트
+        <id>: primary key 컬럼을 매핑하기 위한 태그(성능 향상)
+        <result>: pk가 아닌 일반 컬럼에 매핑하기 위한 태그
+        <constructor>: 인스턴스화 되는 클래스의 생성자에 결과를 삽입하기 위해 사용
+                       <idArg>, <arg> 하위 엘리먼트가 있다.
+        <association>: 복잡한 타입의 연관관계로 1:1 포함관계인 경우 사용
+        <collection>: 복잡한 타입의 연관관계로 1:M 포함관계인 경우 사용
+    -->
+
+    <!-- <constructor> -->
+    <resultMap id="menuResultMap3" type="com.ohgiraffers.common.MenuDTO">
+        <constructor>
+            <idArg column="menu_code" javaType="_int"/>
+            <arg column="menu_name" javaType="string"/>
+            <arg column="menu_price" javaType="_int"/>
+            <arg column="category_code" javaType="_int"/>
+            <arg column="orderable_status" javaType="string"/>
+        </constructor>
+    </resultMap>
+
+    <select id="selectResultMapConstructorTest" resultMap="menuResultMap3">
+        SELECT a.menu_code, a.menu_name, a.menu_price, a.category_code, a.orderable_status
+        FROM tbl_menu a
+        WHERE a.orderable_status = 'Y'
+    </select>
+
+    <!-- association
+         a. 따로 만든 resultMap을 사용하는 방법
+    -->
+    <resultMap id="menuAndCategoryResultMap" type="com.ohgiraffers.common.MenuAndCategoryDTO">
+        <id property="code" column="menu_code"/>
+        <result property="name" column="menu_name"/>
+        <result property="price" column="menu_price"/>
+        <result property="orderableStatus" column="orderable_status"/>
+        <association property="category" resultMap="categoryResultMap"/>
+    </resultMap>
+    <resultMap id="categoryResultMap" type="com.ohgiraffers.common.CategoryDTO">
+        <id property="code" column="category_code"/>
+        <result property="name" column="category_name"/>
+        <result property="refCategoryCode" column="ref_category_code"/>
+    </resultMap>
+
+    <select id="selectResultMapAssociationTest" resultMap="menuAndCategoryResultMap">
+        SELECT a.menu_code, a.menu_name, a.menu_price, b.category_code, b.category_name, b.ref_category_code, a.orderable_status
+        FROM tbl_menu a JOIN tbl_category b ON (a.category_code = b.category_code)
+        WHERE a.orderable_status = 'Y'
+    </select>
 </mapper>
