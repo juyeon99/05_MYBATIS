@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ohgiraffers.section01.xmlmapper.ElementTestMapper">
+
+    <!-- <cache>와 <cache-ref>
+         - cache는 현재 네임스페이스에 대한 캐시 설정
+         - cache-ref는 다른 네임스페이스에 대한 캐시 설정 참조 할 때 사용
+
+         캐시란?
+         - 컴퓨터 과학에서 데이터나 값을 미리 복사해둔 임시 저장소
+         - 캐시 접근 시간에 비해 원래 데이터에 접근하는 시간이 오래걸리는 경우나,
+         - 값을 다시 계산하는 경우 시간을 절약하고 싶을 때 사용
+         - 캐시에 데이터를 미리 복사해두면 계산이나 접근시간 없이 더 빠른 속도로 데이터에 접근 가능
+
+         ==============================================================================
+         <사용 가능 속성>
+         1. eviction: 캐시 알고리즘 속성, 디폴트는 LRU, FIFO, SOFT, WEAK로 설정 가능
+         2. flushInterval: 설정된 캐시를 얼마동안 유지할지 밀리초 단위 및 양수로만 설정 가능
+         3. size: 캐시에 저장할 객체의 수를 지정, 디폴트는 1024
+         4. readonly: 읽기만 가능한 경우 캐시 데이터는 변경되지 않는다.
+    -->
+    <cache eviction="LRU" flushInterval="1000" size="512" readOnly="true"/>
+    <select id="selectCacheTest" resultType="java.lang.String">
+        SELECT menu_name
+        FROM tbl_menu
+    </select>
+</mapper>
