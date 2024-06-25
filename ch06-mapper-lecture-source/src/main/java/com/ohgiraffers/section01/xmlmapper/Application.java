@@ -1,5 +1,7 @@
 package com.ohgiraffers.section01.xmlmapper;
 
+import com.ohgiraffers.common.CategoryDTO;
+import com.ohgiraffers.common.MenuAndCategoryDTO;
 import com.ohgiraffers.common.MenuDTO;
 
 import java.util.Scanner;
@@ -65,7 +67,7 @@ public class Application {
 
             switch (no){
                 case 1: elementTestService.insertMenuTest(inputMenu()); break;
-//                case 2: elementTestService.(); break;
+                case 2: elementTestService.insertCategoryAndMenuTest(inputMenuAndCategory()); break;
                 case 0: return;
             }
         } while (true);
@@ -90,5 +92,30 @@ public class Application {
         menu.setOrderableStatus(orderableStatus);
 
         return menu;
+    }
+
+    private static MenuAndCategoryDTO inputMenuAndCategory() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("신규 카테고리 이름: ");
+        String categoryName = sc.nextLine();
+        System.out.print("등록할 메뉴 이름: ");
+        String menuName = sc.nextLine();
+        System.out.print("메뉴 가격: ");
+        int price = sc.nextInt();
+        sc.nextLine();
+        System.out.print("판매 등록 여부 (Y/N): ");
+        String orderableStatus = sc.nextLine();
+
+        MenuAndCategoryDTO menuAndCategory = new MenuAndCategoryDTO();
+        CategoryDTO category = new CategoryDTO();
+
+        category.setName(categoryName);
+
+        menuAndCategory.setName(menuName);
+        menuAndCategory.setPrice(price);
+        menuAndCategory.setOrderableStatus(orderableStatus);
+        menuAndCategory.setCategory(category);
+
+        return menuAndCategory;
     }
 }

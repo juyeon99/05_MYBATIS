@@ -199,12 +199,26 @@
          =========================================================================================
          <insert 추가 속성>
          - useGenerateKeys: 생성 키 값을 만들기 위해 JDBC의 getGenerateKeys 메소드를 호출할지 결정. 기본값 false
-         - KeyProperty: insert 구문의 하위 엘리먼트인 selectKey 엘리먼트에 의한 반환 값을 설정할 프로퍼티에 지정
-         - KeyColumn: 생성 키를 가진 테이블의 컬럼명을 설정
+         - keyProperty: insert 구문의 하위 엘리먼트인 selectKey 엘리먼트에 의한 반환 값을 설정할 프로퍼티에 지정
+         - keyColumn: 생성 키를 가진 테이블의 컬럼명을 설정
     -->
 
     <insert id="insertMenuTest" parameterType="com.ohgiraffers.common.MenuDTO">
         INSERT INTO tbl_menu (menu_name, menu_price, category_code, orderable_status)
         VALUES (#{name}, #{price}, #{categoryCode}, #{orderableStatus})
+    </insert>
+
+    <insert id="insertNewCategory" parameterType="com.ohgiraffers.common.MenuAndCategoryDTO">
+        INSERT INTO tbl_category (category_name, ref_category_code)
+        VALUES (#{category.name}, null)
+    </insert>
+
+    <insert id="insertNewMenu">
+        <selectKey keyProperty="category.code" order="BEFORE" resultType="_int">
+            <!-- LAST_INSERT_ID(): sqlSession에서 삽입된 데이터의 id(primaryKey)값을 가져온다. -->
+            SELECT LAST_INSERT_ID();
+        </selectKey>
+        INSERT INTO tbl_menu (menu_name, menu_price, category_code, orderable_status)
+        VALUES (#{name}, #{price}, #{category.code}, #{orderableStatus})
     </insert>
 </mapper>
