@@ -99,4 +99,20 @@ public class ElementTestService {
 
         sqlSession.close();
     }
+
+    public void insertMenuTest(MenuDTO menu) {
+        SqlSession sqlSession = getSqlSession();
+        mapper = sqlSession.getMapper(ElementTestMapper.class);
+
+        int result = mapper.insertMenuTest(menu);
+        if (result > 0){
+            System.out.println("메뉴 등록 성공");
+            sqlSession.commit();
+        } else {
+            System.out.println("메뉴 등록 실패");
+            sqlSession.rollback();
+        }
+
+        sqlSession.close();
+    }
 }

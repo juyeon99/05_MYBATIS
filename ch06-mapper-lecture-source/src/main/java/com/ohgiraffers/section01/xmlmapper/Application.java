@@ -1,5 +1,7 @@
 package com.ohgiraffers.section01.xmlmapper;
 
+import com.ohgiraffers.common.MenuDTO;
+
 import java.util.Scanner;
 
 public class Application {
@@ -21,7 +23,7 @@ public class Application {
                 case 1: elementTestService.selectCacheTest(); break;
                 case 2: resultMapSubMenu(); break;
                 case 3: elementTestService.selectSqlTest(); break;
-                case 4:  break;
+                case 4: insertSubMenu(); break;
                 case 0: flag = false; break;
             }
         } while(flag);
@@ -47,5 +49,46 @@ public class Application {
                 case 0: return;
             }
         } while (true);
+    }
+
+    private static void insertSubMenu() {
+        Scanner sc = new Scanner(System.in);
+        ElementTestService elementTestService = new ElementTestService();
+
+        do {
+            System.out.println("\n========== <insert> 서브 메뉴 ==========");
+            System.out.println("1. <insert> 테스트 (메뉴 등록)\n2. <insert> 테스트 (신규 카테고리의 메뉴 등록)\n0. 이전 메뉴로");
+            System.out.println("--------------------------------------------");
+            System.out.print("번호 입력: ");
+            int no = sc.nextInt();
+            sc.nextLine();
+
+            switch (no){
+                case 1: elementTestService.insertMenuTest(inputMenu()); break;
+//                case 2: elementTestService.(); break;
+                case 0: return;
+            }
+        } while (true);
+    }
+
+    private static MenuDTO inputMenu() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("등록할 메뉴 이름: ");
+        String name = sc.nextLine();
+        System.out.print("메뉴 가격: ");
+        int price = sc.nextInt();
+        System.out.print("카테고리 코드: ");
+        int categoryCode = sc.nextInt();
+        sc.nextLine();
+        System.out.print("판매 등록 여부 (Y/N): ");
+        String orderableStatus = sc.nextLine();
+
+        MenuDTO menu = new MenuDTO();
+        menu.setName(name);
+        menu.setPrice(price);
+        menu.setCategoryCode(categoryCode);
+        menu.setOrderableStatus(orderableStatus);
+
+        return menu;
     }
 }
